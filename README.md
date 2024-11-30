@@ -5,13 +5,13 @@
 2. **Install the required Python libraries:**
 
    ```bash
-   pip install numpy pandas scikit-learn
+   pip install numpy pandas sklearn
 3. **Install the required Python libraries:**
    ```bash
    pip install nltk
-4. **Change to directory of file tweet_clustering.py**
+4. **Change directory to Health-Tweets**
 5. **Run the program:**
    ```bash
-   python tweet_clustering.py
+   python tweets_clustering.py
 
    
