@@ -1,6 +1,6 @@
 # Tweets Clustering using k-means
 
-1. **Clone the repository or download the source code.**
+1. **Download the files from eLearning.**
 
 2. **Install the required Python libraries:**
 
