@@ -5,10 +5,7 @@
 2. **Install the required Python libraries:**
 
    ```bash
-   pip install numpy pandas
-3. **Install the required Python libraries:**
-   ```bash
-   pip install nltk
+   pip install numpy pandas nltk
 4. **Change directory to Health-Tweets**
 5. **Run the program:**
    ```bash
