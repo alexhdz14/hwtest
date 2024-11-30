@@ -6,29 +6,14 @@ import string
 import random
 
 def preprocess_tweet(tweet):
-    # Remove tweet ID and timestamp (assuming they are at the beginning)
     tweet = re.sub(r'^\d+\s+\d+:\d+:\d+\s+', '', tweet)
-
-    # Remove mentions
     tweet = re.sub(r'@\w+', '', tweet)
-
-    # Remove hashtag symbols
     tweet = re.sub(r'#', '', tweet)
-
-    # Remove URLs
     tweet = re.sub(r'http\S+|www.\S+', '', tweet)
-
-    # Convert to lowercase
     tweet = tweet.lower()
-
-    # Remove punctuation
     tweet = tweet.translate(str.maketrans('', '', string.punctuation))
-
-    # Remove extra whitespace
     tweet = tweet.strip()
     tweet = re.sub(r'\s+', ' ', tweet)
-
-    # Optionally, remove stopwords
     stop_words = set(stopwords.words('english'))
     words = tweet.split()
     words = [word for word in words if word not in stop_words]
@@ -40,7 +25,7 @@ def jaccard_distance(set1, set2):
     intersection = set1.intersection(set2)
     union = set1.union(set2)
     if not union:
-        return 1  # Define distance as 1 if both sets are empty
+        return 1
     return 1 - len(intersection) / len(union)
 
 
@@ -52,32 +37,26 @@ class KMeansJaccard:
         self.clusters = [[] for _ in range(K)]
 
     def fit(self, data):
-        # Initialize centroids randomly
         self.centroids = random.sample(data, self.K)
 
         for iteration in range(self.max_iterations):
             print(f"Iteration {iteration + 1}")
-            # Assign clusters
             new_clusters = [[] for _ in range(self.K)]
             for tweet in data:
                 distances = [jaccard_distance(tweet, centroid) for centroid in self.centroids]
                 min_distance_index = distances.index(min(distances))
                 new_clusters[min_distance_index].append(tweet)
 
-            # Check for convergence
             if new_clusters == self.clusters:
                 print("Convergence reached.")
                 break
             self.clusters = new_clusters
 
-            # Update centroids
             new_centroids = []
             for idx, cluster in enumerate(self.clusters):
                 if not cluster:
-                    # If a cluster is empty, reinitialize its centroid
                     new_centroid = random.choice(data)
                 else:
-                    # Choose the tweet with the minimum total distance to all others in the cluster
                     min_distance = float('inf')
                     new_centroid = cluster[0]
                     for candidate in cluster:
@@ -111,23 +90,20 @@ def compute_sse(clusters, centroids):
             sse += distance ** 2
     return sse
 
-
 def main():
-    # Specify the path to your data file
-    data_file = 'usnewshealth.txt'  # Change this to your chosen file
+    data_file = 'usnewshealth.txt'
     if not os.path.exists(data_file):
-        print(f"Data file {data_file} does not exist.")
+        print("Cannot read file usnewshealth.txt!")
         return
 
-    print("Loading data...")
+    print("Load data")
     raw_tweets = load_data(data_file)
-    print(f"Total tweets loaded: {len(raw_tweets)}")
+    print(f"Tweets loaded: {len(raw_tweets)}")
 
-    print("Preprocessing tweets...")
+    print("Preprocessing tweets")
     preprocessed_tweets = [preprocess_tweet(tweet) for tweet in raw_tweets]
-    print("Preprocessing completed.")
+    print("Preprocessing completed")
 
-    # Define different K values
     K_values = [5, 10, 15, 20, 25]
     results = []
 
@@ -139,10 +115,8 @@ def main():
         centroids = kmeans.centroids
         sse = compute_sse(clusters, centroids)
 
-        # Record cluster sizes
         cluster_sizes = [len(cluster) for cluster in clusters]
 
-        # Prepare result entry
         result_entry = {
             'K': K,
             'SSE': sse,
@@ -150,11 +124,10 @@ def main():
         }
         results.append(result_entry)
 
-        print(f"Finished clustering for K={K}")
+        print(f"Value of K={K}")
         print(f"SSE: {sse}")
-        print(f"Cluster Sizes: {cluster_sizes}")
+        print(f"Size of each cluster: {cluster_sizes}")
 
-    # Create results table
     results_df = pd.DataFrame(results)
     print("\nClustering Results:")
     print(results_df)
