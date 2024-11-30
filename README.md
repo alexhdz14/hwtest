@@ -1,4 +1,4 @@
-# Tweet Clustering using K-means and Jaccard Distance
+# Tweets Clustering using k-means
 
 1. **Clone the repository or download the source code.**
 
