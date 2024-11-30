@@ -25,4 +25,4 @@ This project implements K-means clustering on Twitter data using the Jaccard Dis
 2. **Install the required Python libraries:**
 
    ```bash
-   pip install numpy pandas nltk sklearn
+   pip install nltk numpy pandas sklearn
