@@ -9,7 +9,7 @@
 3. **Install the required Python libraries:**
    ```bash
    pip install nltk
-4. **Change to directory of file**
+4. **Change to directory of file tweet_clustering.py**
 5. **Run the program:**
    ```bash
    python tweet_clustering.py
