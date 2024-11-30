@@ -5,7 +5,7 @@
 2. **Install the required Python libraries:**
 
    ```bash
-   pip install numpy pandas scikit-learn
+   pip install numpy pandas
 3. **Install the required Python libraries:**
    ```bash
    pip install nltk
