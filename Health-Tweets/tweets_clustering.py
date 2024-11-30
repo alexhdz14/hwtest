@@ -4,7 +4,11 @@ from nltk.corpus import stopwords
 import re
 import string
 import random
+import nltk
 
+
+
+nltk.download('stopwords')
 def preprocess_tweet(tweet):
     tweet = re.sub(r'^\d+\s+\d+:\d+:\d+\s+', '', tweet)
     tweet = re.sub(r'@\w+', '', tweet)
